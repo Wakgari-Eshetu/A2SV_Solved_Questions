@@ -116,3 +116,112 @@ def heap_sort(nums):
 
 nums = [5,2,4,6,1,3]
 print(heap_sort(nums))
+
+
+# linked list DSA 
+# 1. singly linked list
+
+class Node:
+    def __init__(self , data):
+        self.data = data 
+        self.next = None
+
+
+def insert_node_at_end(head , num):
+    new_node = Node(num)
+
+    if head is None:
+        head = new_node
+        
+    else:
+        temp = head 
+        while temp.next:
+            temp = temp.next
+        temp.next = new_node
+      
+    return head
+
+head = None
+
+def insert_node_at_begging(head , num):
+    new_node = Node(num)
+    if head is None:
+        head = new_node
+    else:
+        new_node.next = head
+        head = new_node 
+    
+    return head 
+
+def insert_at_any_pos(head , pos , num):
+    new_node = Node(num)
+    if pos == 1:
+        new_node.next = head
+        head = new_node
+
+    temp = head
+    for i in range(1 , pos-1):
+        temp = temp.next
+    if temp is None:
+        return head
+    new_node.next = temp.next
+    temp.next = new_node
+    return head 
+
+def deletion_from_beg(head):
+    if head is None:
+        print('linked list is empty |nothing to delete|')
+        return head
+    temp = head 
+    head = temp.next
+    del temp 
+    return head
+def deletion_from_end(head):
+    if head is None:
+        print('linked list is empty |nothing to delete|')
+        return head
+    temp = head
+    
+    if head.next is None:
+        return None
+    
+    while temp.next.next:
+        temp = temp.next
+    del temp.next.next
+    temp.next = None
+    return head
+
+def delforanypos(head , pos):
+    if head is None:
+        print('NOthing to del')
+        return head
+    temp = head
+    if pos == 1:
+        head = temp.next
+        del temp 
+        return head
+        
+    for i in range(1 , pos-1):
+        if temp is None or temp.next is None:
+            print('Invalid position')
+            return head
+        temp = temp.next
+    value_to_del = temp.next
+
+    temp.next = value_to_del.next
+    del value_to_del
+    return head
+
+def print_list(head):
+    if head is None:
+        print('Nothing to display')
+        return head
+    temp = head 
+    while temp:
+        print(temp.data , end= ' ')
+        temp = temp.next
+    return head
+
+
+
+
