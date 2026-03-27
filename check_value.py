@@ -222,6 +222,107 @@ def print_list(head):
         temp = temp.next
     return head
 
+infix = '(A+B)*(C-D)'
 
+def precedence(op):
+    if op == '+' or op == '-':
+        return 1
+    elif op == '*' or op == '/':
+        return 2
+    elif op == '^':
+        return 3
+    return 0
 
+def infix_to_postfix(string:str):
+    stack = []
+    output = []
+
+    for char in string:
+        if char.isalnum():
+            output.append(char)
+        elif char == '(':
+            stack.append(char)
+        elif char == ')':
+            while stack and stack[-1]!= '(':
+                output.append(stack.pop())
+            stack.pop()
+        else:
+            while stack and precedence(stack[-1]) >= precedence(char):
+                output.append(stack.pop())
+            stack.append(char)
+    while stack:
+        output.append(stack.pop())
+    
+    return ''.join(output)
+
+def infix_to_prefix(string):
+    string = string[::-1]
+    for ch in string:
+        if ch == '(':
+            ch = ')'
+        elif ch == ')':
+            ch = '('
+    
+    string = ''.join(string)
+    postfix = infix_to_postfix(string)
+
+    return postfix[::-1]
+
+def postfix_to_infix(string):
+    stack = []
+
+    for ch in string:
+        if ch.isalnum():
+            stack.append(ch)
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            stack.append(f"{a}{ch}{b}")
+    return stack[-1]
+
+def prefix_to_infix(string):
+    stack = []
+    string = string[::-1]
+    for ch in string:
+        if ch.isalnum():
+            stack.append(ch)
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            stack.append(f"{a}{ch}{b}")
+    return stack[-1]
+
+def prefix_to_postfix(string):
+    stack = []
+    for ch in string:
+        if ch.isalnum():
+            stack.append(ch)
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            stack.append(ch + a + b)
+    
+    return stack[-1]
+
+def postfix_to_prefix(string):
+    stack = []
+    for ch in string:
+        if ch.isalnum():
+            stack.append(ch)
+        else:
+            b = stack.pop()
+            a = stack.pop()
+            stack.append(a + b + ch)
+    
+    return stack[-1]
+
+def lg(nums):
+    max_value = 0
+    for i in range(len(nums)):
+        count = 0
+        for j in range(i , len(nums)-1):
+            if nums[j+1] - nums[j] == 1:
+                count += 1
+        max_value = max(max_value , count )
+    return max_value
 
