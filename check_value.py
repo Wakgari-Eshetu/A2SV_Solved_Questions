@@ -326,3 +326,38 @@ def lg(nums):
         max_value = max(max_value , count )
     return max_value
 
+# working with queue and deque 
+from collections import deque 
+class Queue:
+    def __init__(self):
+        self.que = deque()
+    def enqueue(self , num:int):
+        self.que.append(num)
+    def dequeue(self):
+        if not self.que:
+            print('Queue is empty')
+            return None
+        return self.que.popleft()
+    def peek(self):
+        if not self.que:
+            print('Queue is empty')
+            return None
+        return self.que[0]
+    def is_empty(self):
+        return len(self.que) == 0
+    
+    def size(self):
+        return len(self.que)
+    
+    def display(self):
+        if not self.que:
+            print('like banana')
+            return None 
+        for num in self.que:
+            print(num , end= ' ')
+        
+        print()
+    
+    def clear(self):
+        self.que.clear()
+print(Queue())
